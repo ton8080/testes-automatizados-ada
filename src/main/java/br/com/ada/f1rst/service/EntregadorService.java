@@ -1,11 +1,15 @@
 package br.com.ada.f1rst.service;
 
+import br.com.ada.f1rst.entity.ContaBancaria;
 import br.com.ada.f1rst.entity.Entregador;
+import br.com.ada.f1rst.entity.Veiculo;
 import br.com.ada.f1rst.enums.DocumentoType;
 import br.com.ada.f1rst.exceptions.*;
 import br.com.ada.f1rst.repository.EntregadorRepository;
+import br.com.ada.f1rst.validation.ContaBancariaValidator;
 import br.com.ada.f1rst.validation.DataValidator;
 import br.com.ada.f1rst.validation.DocumentoValidator;
+import br.com.ada.f1rst.validation.VeiculoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,38 +18,22 @@ import org.springframework.stereotype.Service;
 public class EntregadorService {
 
     private final EntregadorRepository entregadorRepository;
+    private final VeiculoService veiculoService;
+    private final ContaBancariaService contaBancariaService;
+    private final DocumentoService documentoService;
 
     public Entregador salvar(Entregador entregador) {
         if (entregador == null) {
             throw new EntregadorInvalidoException();
         }
-
-        DocumentoType tipoDocumentoType = entregador.getDocumentoType();
-        String numeroDocumento = entregador.getDocumento().getNumeroDocumento();
-
-        switch (tipoDocumentoType) {
-            case CPF:
-                if (!DocumentoValidator.validaCpf(numeroDocumento)) {
-                    throw new CpfInvalidoException();
-                }
-                break;
-            case RG:
-                if (!DocumentoValidator.validarRG(numeroDocumento)) {
-                    throw new RgInvalidoException();
-                }
-                break;
-            case CNH:
-                if (!DocumentoValidator.validarCNH(numeroDocumento)) {
-                    throw new CnhInvalidaException();
-                }
-                DataValidator.validarDataVencimentoCNH(entregador.getDocumento().getValidadeDocumento());
-                break;
-            default:
-                throw new TipoDocumentoInvalidoException();
-        }
+        documentoService.validarDocumento(entregador.getDocumento());
+        veiculoService.validarVeiculo(entregador.getVeiculo());
+        contaBancariaService.validarContaBancaria(entregador.getContaBancaria());
 
         return entregadorRepository.save(entregador);
     }
+
+
 
 
 }

@@ -18,7 +18,7 @@ public class ContaBancariaService {
         return contaBancariaRepository.save(contaBancaria);
     }
 
-    private void validarContaBancaria(ContaBancaria contaBancaria) {
+    public void validarContaBancaria(ContaBancaria contaBancaria) {
         if (contaBancaria == null) {
             throw new ContaBancariaInvalidaException();
         }

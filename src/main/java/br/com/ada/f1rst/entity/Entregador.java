@@ -25,6 +25,9 @@ public class Entregador {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
+    @ManyToOne
+    @JoinColumn(name = "conta_bancaria_id")
+    private ContaBancaria contaBancaria;
 
 
 

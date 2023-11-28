@@ -23,7 +23,8 @@ public class VeiculoService {
         return veiculoRepository.save(veiculo);
     }
 
-    private void validarVeiculo(Veiculo veiculo) {
+
+    public void validarVeiculo(Veiculo veiculo) {
         if (veiculo == null) {
             throw new VeiculoInvalidoException();
         }
@@ -40,4 +41,6 @@ public class VeiculoService {
             throw new RenavamInvalidoException();
         }
     }
+
+
 }
