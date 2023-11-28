@@ -13,8 +13,6 @@ public class Entregador {
     @Id
     private Long id;
     private String nome;
-    @Column(unique = true, nullable = false)
-    private DocumentoType documentoType;
     @ManyToOne(optional = false)
     @JoinColumn(name = "documento_ID", nullable = false, unique = true)
     private Documento documento;

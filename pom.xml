@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.ada</groupId>
 	<artifactId>f1rst</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>f1rst</name>
 	<description>Project Ada</description>
 	<properties>
