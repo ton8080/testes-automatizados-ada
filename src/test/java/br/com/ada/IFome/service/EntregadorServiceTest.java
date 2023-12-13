@@ -8,15 +8,20 @@ import br.com.ada.IFome.enums.DocumentoType;
 import br.com.ada.IFome.exceptions.*;
 import br.com.ada.IFome.repository.EntregadorRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class EntregadorServiceTest {
 
     @Mock
@@ -80,23 +85,28 @@ public class EntregadorServiceTest {
     }
 
     private Entregador criarEntregadorValido() {
-        var entregador = new Entregador();
+        Entregador entregador = new Entregador();
         Documento documento = new Documento();
         documento.setDocumentoType(DocumentoType.CPF);
         documento.setNumeroDocumento("12345678910");
+        documento.setValidadeDocumento(LocalDate.now().plusYears(1));
         entregador.setDocumento(documento);
-
         Veiculo veiculo = new Veiculo();
         veiculo.setAnoModelo(2010);
         veiculo.setPlaca("ABC1234");
         veiculo.setRenavam("123456789");
         entregador.setVeiculo(veiculo);
+
         ContaBancaria contaBancaria = new ContaBancaria();
         contaBancaria.setTipoConta("CORRENTE");
         contaBancaria.setNumeroConta("456");
         contaBancaria.setInstituicaoBancaria("Banco A");
         contaBancaria.setNumeroAgencia("123");
         entregador.setContaBancaria(contaBancaria);
+
+        entregador.setEmail("washington@mail.com");
+
         return entregador;
     }
+
 }

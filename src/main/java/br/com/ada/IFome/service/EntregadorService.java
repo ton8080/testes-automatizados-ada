@@ -4,16 +4,20 @@ import br.com.ada.IFome.entity.Entregador;
 import br.com.ada.IFome.exceptions.*;
 import br.com.ada.IFome.repository.EntregadorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class EntregadorService {
 
-    private final EntregadorRepository entregadorRepository;
-    private final VeiculoService veiculoService;
-    private final ContaBancariaService contaBancariaService;
-    private final DocumentoService documentoService;
+    @Autowired
+    private  EntregadorRepository entregadorRepository;
+    @Autowired
+    private  VeiculoService veiculoService;
+    @Autowired
+    private  ContaBancariaService contaBancariaService;
+    @Autowired
+    private  DocumentoService documentoService;
 
     public Entregador salvar(Entregador entregador) {
         if (entregador == null) {

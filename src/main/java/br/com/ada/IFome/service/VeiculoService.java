@@ -8,14 +8,14 @@ import br.com.ada.IFome.exceptions.VeiculoInvalidoException;
 import br.com.ada.IFome.repository.VeiculoRepository;
 import br.com.ada.IFome.validation.VeiculoValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class VeiculoService {
 
-
-    private final VeiculoRepository veiculoRepository;
+    @Autowired
+    private VeiculoRepository veiculoRepository;
 
     public Veiculo cadastrarVeiculo(Veiculo veiculo) {
         validarVeiculo(veiculo);

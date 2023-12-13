@@ -14,6 +14,7 @@ import io.restassured.specification.RequestSpecification;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 
 public class EntregadorSteps {
@@ -62,6 +63,23 @@ public class EntregadorSteps {
     @And("conteudo com a mensagem {string}")
     public void conteudoComAMensagem(String mensagem) {
         response.assertThat().body(equalTo(mensagem));
+    }
+
+    @When("eu enviar uma requisição para remover o entregador com ID {int}")
+    public void removerEntregador(Integer id) {
+        String endpoint = "/entregadores/remover/" + id;
+        response = request.delete(endpoint).then();
+    }
+
+    @Then("eu recebo uma resposta com código {int}")
+    public void verificarCodigoResposta(Integer codigo) {
+        response.assertThat().statusCode(codigo);
+
+        if (codigo == 200) {
+            response.assertThat().body(equalTo("Entregador removido com sucesso."));
+        } else if (codigo == 404) {
+            response.assertThat().body(equalTo("Entregador não encontrado."));
+        }
     }
 
     private Entregador criarEntregador(String documento, String validadeCNH) {

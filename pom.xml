@@ -11,7 +11,7 @@
 	<groupId>br.com.ada</groupId>
 	<artifactId>IFome</artifactId>
 	<version>1.0.3</version>
-	<name>f1rst</name>
+	<name>IFome</name>
 	<description>Project Ada</description>
 	<properties>
 		<java.version>17</java.version>
@@ -160,4 +160,5 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+
 </project>
